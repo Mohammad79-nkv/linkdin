@@ -150,7 +150,7 @@ const NavListWraper = styled.ul`
   display: flex;
   flex-wrap: wrap;
   list-style-type: none;
-
+  margin: 0;
   .active {
     span:after {
       content: "";
