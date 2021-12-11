@@ -19,7 +19,7 @@ const Home = () => {
             moving.
           </p>
         </Section>
-        <Layout className="container ">
+        <Layout className="container-fluid">
           <div className="row">
             <LeftBar/>
             <Main/>
