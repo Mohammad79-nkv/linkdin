@@ -135,7 +135,7 @@ const SearchIcon = styled.div`
 const Nav = styled.nav`
   margin-left: auto;
   display: block;
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -151,6 +151,8 @@ const NavListWraper = styled.ul`
   flex-wrap: wrap;
   list-style-type: none;
   margin: 0;
+  width: 100%;
+  justify-content: space-between;
   .active {
     span:after {
       content: "";

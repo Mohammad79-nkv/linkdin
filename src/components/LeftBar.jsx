@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const LeftBar = () => {
   return (
-    <Container className="col col-12 col-md-4 col-lg-3">
+    <Container className="col col-12 col-lg-3">
       <Content className="">
         <UserInfo>
           <CardBackground />

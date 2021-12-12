@@ -19,7 +19,7 @@ const Home = () => {
             moving.
           </p>
         </Section>
-        <Layout className="container-fluid">
+        <Layout className="container-fluid ">
           <div className="row">
             <LeftBar/>
             <Main/>
@@ -66,6 +66,15 @@ const Section = styled.div`
     padding: 0 5px;
   }
 `;
-const Layout = styled.div``;
+const Layout = styled.div`
+  max-width: 1320px;
+  margin: 0 auto;
+  @media (max-width: 992px) {
+    width: 768px;
+  }
+  @media (max-width: 768px) {
+    width: auto;
+  }
+`;
 
 export default Home;
