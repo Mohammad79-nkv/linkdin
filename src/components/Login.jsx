@@ -1,6 +1,16 @@
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { signInGoogle } from "../store/user";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const handleSignInWithGoogle =  async() => {
+    await dispatch(signInGoogle());
+    history.push("/home");
+  };
+
   return (
     <Container>
       <Nav>
@@ -18,7 +28,7 @@ const Login = () => {
           <img src="/images/login-hero.svg" alt="login-hro" />
         </Hero>
         <Form>
-          <Google>
+          <Google onClick={handleSignInWithGoogle}>
             <img src="/images/google.svg" alt="signIn-google" />
             Sign in whit Google
           </Google>
@@ -63,6 +73,7 @@ const Join = styled.a`
   }
 `;
 const SignIn = styled.a`
+  text-decoration: none;
   box-shadow: inset 0 0 0 1px #0a66c2;
   color: #0a66c2;
   border-radius: 24px;
@@ -133,9 +144,12 @@ const Form = styled.div`
   width: 408px;
   @media (max-width: 768px) {
     margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
   }
 `;
 const Google = styled.button`
+  margin: 0 auto;
   display: flex;
   align-items: center;
   background-color: #fff;
@@ -148,13 +162,13 @@ const Google = styled.button`
   box-shadow: inset 0 0 0 1px rgb(0 0 0 / 60%),
     inset 0 0 0 2px rgb(0 0 0 / 0%) inset 0 0 0 1px rgb(0 0 0 / 0);
   vertical-align: middle;
-  z-index: 0 ;
+  z-index: 0;
   transition-duration: 167ms;
   font-size: 20px;
-  color : rgba(0,0,0, 0.6);
-  &:hover{
+  color: rgba(0, 0, 0, 0.6);
+  &:hover {
     background-color: rgba(207, 207, 207, 0.25);
-    color : rgba(0,0,0,0.75);
+    color: rgba(0, 0, 0, 0.75);
   }
 `;
 export default Login;

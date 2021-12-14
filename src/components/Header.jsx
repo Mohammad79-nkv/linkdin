@@ -1,6 +1,9 @@
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { signUpUser } from "../store/user";
 
 const Header = () => {
+  const dispatch = useDispatch()
   return (
     <Container>
       <Content>
@@ -54,7 +57,7 @@ const Header = () => {
                 <img src="/images/user.svg" alt="" />
                 <span>Me</span>{" "}
               </a>
-              <SignOut>
+              <SignOut onClick={() => dispatch(signUpUser())}>
                 <a href="#">
                   Sign out
                 </a>
