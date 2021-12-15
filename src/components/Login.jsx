@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { signInGoogle } from "../store/user";
 
 const Login = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const handleSignInWithGoogle =  async() => {
+  const handleSignInWithGoogle = async () => {
     await dispatch(signInGoogle());
     history.push("/home");
   };
@@ -19,7 +19,9 @@ const Login = () => {
         </a>
         <div>
           <Join>Join now</Join>
-          <SignIn>Sign in</SignIn>
+          <Link to="/login">
+            <SignIn>Sign in</SignIn>
+          </Link>
         </div>
       </Nav>
       <Section>
@@ -73,7 +75,7 @@ const Join = styled.a`
   }
 `;
 const SignIn = styled.a`
-  text-decoration: none;
+  text-decoration: none !important;
   box-shadow: inset 0 0 0 1px #0a66c2;
   color: #0a66c2;
   border-radius: 24px;
