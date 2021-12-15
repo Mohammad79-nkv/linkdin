@@ -18,7 +18,9 @@ const Login = () => {
           <img src="/images/login-logo.svg" alt="header-logo" />
         </a>
         <div>
-          <Join>Join now</Join>
+          <Link to="/register">
+            <Join>Join now</Join>
+          </Link>
           <Link to="/login">
             <SignIn>Sign in</SignIn>
           </Link>

@@ -24,49 +24,29 @@ const useStyles = makeStyles((theme) => ({
   password: {
     marginTop: theme.spacing(2),
   },
-  forgatPassword : {
-    marginTop: theme.spacing(2),
-    color: "#0A66C2",
-    fontWeight: "bold",
-    // display: "inline",
-    width: '160px',
-    cursor: 'pointer',
-    transitionDuration: '100ms',
-    textAlign: 'center',
-    boxSizing:'border-box',
-    padding:'4px 8px',
-    marginLeft: '-10px',
-    borderRadius: '20px',
-    '&:hover' : {
-        textDecoration: 'underline',
-        backgroundColor: '#D0E8FF'
-    }
-  },
+  //
   formBtn: {
-      marginTop: theme.spacing(3),
-      padding: '15px',
-      borderRadius: '40px',
-      backgroundColor: '#0A66C2',
-      fontWeight: '500',
-  }
+    marginTop: theme.spacing(3),
+    padding: "15px",
+    borderRadius: "40px",
+    backgroundColor: "#0A66C2",
+    fontWeight: "500",
+  },
 }));
 
-const SignIn = () => {
+const SignUp = () => {
   const classes = useStyles();
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
   return (
     <Container>
-      <Header>
-        <a>
-          <img src="/images/login-logo.svg" alt="header-logo" />
-        </a>
-      </Header>
-      <Content>
-        <HeaderContent>
-          <h1>Sign in</h1>
-          <p>Stay updated on your professional world</p>
-        </HeaderContent>
-        <FormContent>
+      <Main>
+        <MainHeader>
+          <a>
+            <img src="/images/login-logo.svg" />
+          </a>
+          <h2>Make the most of your professional life</h2>
+        </MainHeader>
+        <MainContent>
           <form onSubmit={formik.handleSubmit}>
             <FormControl
               control="input"
@@ -91,65 +71,80 @@ const SignIn = () => {
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
             />
-            <Typography className={classes.forgatPassword}>Forgot password?</Typography>
+            <p>
+              By clicking Agree & Join, you agree to the LinkedIn<span>User Agreement, Privacy Policy,</span> 
+               and <span>Cookie Policy</span>.
+            </p>
             <Button
               className={classes.formBtn}
               color="primary"
               variant="contained"
               fullWidth
               type="submit"
-            
             >
-              Sign in
+              Agree & Join
             </Button>
           </form>
-        </FormContent>
-      </Content>
+        </MainContent>
+      </Main>
+      <Footer></Footer>
     </Container>
   );
 };
 
 const Container = styled.div`
+  /* background: skyblue; */
   height: 100vh;
-  width: 100%;
+  /* overflow: hidden; */
 `;
-const Header = styled.header`
+const Main = styled.div`
+  height: calc(100% - 50px);
+  width: 100%;
+  background-color: #f3f2ef;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 0;
+  /* justify-content: center; */
+`;
+const Footer = styled.div`
+  background: #ffffff;
+  height: 50px;
+`;
+const MainHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   img {
     width: 110px;
     height: 34px;
-    margin-top: 30px;
-    margin-left: 30px;
+  }
+  h2 {
+    padding: 24px 16px;
   }
 `;
-const Content = styled.div`
-  width: 100%;
-  margin: 30px auto;
-  /* display:flex;
-    justify-content: center;
-    align-items: center; */
-  width: 352px;
-  /* height: 400px; */
-  /* border:1px solid black; */
+const MainContent = styled.div`
+  width: 400px;
+  height: 500px;
+  background: #ffffff;
+  border-radius: 8px;
   padding: 24px;
-  @media (min-width: 768px) {
-      
-      box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
-  }
-`;
-const HeaderContent = styled.div`
-  h1 {
-    font-weight: 500;
-  }
   p {
-    font-size: 12px;
+      /* display:none */
+      font-size: 12px;
+      text-align: center;
+      margin: 16px 0;
+      color:#666666;
+      span {
+        color:#0A66C2;
+        font-weight: bold;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+      }
   }
 `;
-const FormContent = styled.div`
-  form {
-    
-  }
-  .form-btn {
-    margin-top: 20px;
-  }
-`;
-export default SignIn;
+
+export default SignUp;
