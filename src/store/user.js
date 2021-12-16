@@ -1,8 +1,35 @@
+import { toast } from "react-toastify";
 import { auth, provider } from "../firebase";
 // action type
 const addUser = "ADD_USER";
 const removeUser = "REMOVE_USER"
 // action creater
+const signInUser = (values) => {
+  return async(dispatch) => {
+    const { email:formEmail, password } = values;
+    try{
+      const {user} = await auth.signInWithEmailAndPassword(formEmail, password);
+      const { email, photoURL, displayName } =user;
+      const userDitails = {
+        email,
+        photoURL,
+        displayName,
+      };
+      await dispatch({type: addUser, payload: userDitails})
+    }catch(err){
+      console.log(err.message);
+      toast.error(`${err.message}`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+    }
+  }
+}
 const signInGoogle = () => {
   return async (dispatch) => {
     try{
@@ -29,6 +56,6 @@ const userReducer = (state = {}, action) => {
   }
 };
 
-export {signInGoogle, signUpUser}
+export {signInGoogle, signUpUser, signInUser}
 
 export default userReducer;

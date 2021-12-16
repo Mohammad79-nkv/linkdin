@@ -4,7 +4,9 @@ import FormControl from "./form/FormControl";
 import * as Yup from "yup";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import GoogleLogin from "./Authentication/GoogleLogin";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { auth } from "../firebase";
+import { toast } from "react-toastify";
 
 const validationSchema = Yup.object({
   email: Yup.string("Enter your email")
@@ -18,9 +20,24 @@ const initialValues = {
   email: "",
   password: "",
 };
-const onSubmit = (values) => {
-  console.log(values);
-};
+// const onSubmit = (values) => {
+//   const { email, password } = values;
+//   auth
+//     .createUserWithEmailAndPassword(email, password)
+//     .then((res) => {
+//       toast.success("User Created!", {
+//         position: "top-center",
+//         autoClose: 5000,
+//         hideProgressBar: false,
+//         closeOnClick: true,
+//         pauseOnHover: true,
+//         draggable: true,
+//         progress: undefined,
+//       });
+//       history.replace("/login");
+//     })
+//     .catch((err) => console.log(err));
+// };
 
 const useStyles = makeStyles((theme) => ({
   password: {
@@ -37,8 +54,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignUp = () => {
+
+    const onSubmit = (values) => {
+        const { email, password } = values;
+        auth
+          .createUserWithEmailAndPassword(email, password)
+          .then((res) => {
+            toast.success("User Created!", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            history.replace("/login");
+          })
+          .catch((err) => console.log(err));
+      };
+
+  const history = useHistory();
   const classes = useStyles();
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
+
+  
+
   return (
     <Container>
       <Main>
@@ -135,7 +176,7 @@ const Main = styled.div`
   padding: 24px 0;
   /* justify-content: center; */
   @media (max-width: 1160px) {
-      background-color: #ffffffff;
+    background-color: #ffffffff;
   }
 `;
 const MainHeader = styled.div`
@@ -224,26 +265,27 @@ const Footer = styled.div`
   font-size: 12px;
   align-items: center;
   padding-right: 200px;
-  color:rgba(0, 0, 0, 0.6)
+  color: rgba(0, 0, 0, 0.6);
 `;
 const FirstSection = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-around;
   a {
-      cursor: pointer;
-      transition: all 200ms ease-in-out;
-      &:hover {
-          text-decoration: underline !important;
-          color: rgba(0, 0, 0, 1) !important;
-      }  }
-  @media (max-width:1160px) {
-      flex-direction: column;
-      justify-content: space-between;
-      a {
-          margin-bottom: 10px;
-          margin-left: 20px;
-      }
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+    &:hover {
+      text-decoration: underline !important;
+      color: rgba(0, 0, 0, 1) !important;
+    }
+  }
+  @media (max-width: 1160px) {
+    flex-direction: column;
+    justify-content: space-between;
+    a {
+      margin-bottom: 10px;
+      margin-left: 20px;
+    }
   }
 `;
 const SecondSection = styled.div`
@@ -251,22 +293,21 @@ const SecondSection = styled.div`
   display: flex;
   justify-content: space-around;
   a {
-      cursor: pointer;
-      transition: all 200ms ease-in-out;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
 
-      &:hover {
-          text-decoration: underline !important;
-          color: rgba(0, 0, 0, 1) !important;
-      }
+    &:hover {
+      text-decoration: underline !important;
+      color: rgba(0, 0, 0, 1) !important;
+    }
   }
-  @media (max-width:1160px) {
-      flex-direction: column;
-      justify-content: space-between;
-      a {
-          margin-bottom: 10px;
-          margin-left: 20px;
-      }
-
+  @media (max-width: 1160px) {
+    flex-direction: column;
+    justify-content: space-between;
+    a {
+      margin-bottom: 10px;
+      margin-left: 20px;
+    }
   }
 `;
 

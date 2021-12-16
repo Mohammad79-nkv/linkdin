@@ -3,7 +3,11 @@ import styled from "styled-components";
 import FormControl from "./form/FormControl";
 import * as Yup from "yup";
 import { Button, makeStyles, Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { auth } from "../firebase";
+import { useDispatch, useSelector } from 'react-redux';
+import { signInUser } from "../store/user";
+import { toast } from 'react-toastify';
 
 const validationSchema = Yup.object({
   email: Yup.string("Enter your email")
@@ -16,9 +20,6 @@ const validationSchema = Yup.object({
 const initialValues = {
   email: "",
   password: "",
-};
-const onSubmit = (values) => {
-  console.log(values);
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -53,6 +54,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignIn = () => {
+    const dispatch = useDispatch()
+    const user = useSelector(state => state.user)
+    const history = useHistory();
+  const onSubmit = async(values) => {
+    try{
+        await dispatch(signInUser(values))
+        
+        // user && history.replace("/home")
+    }catch(err){
+        // console.log(err);
+        toast.error(`${err.massage}`, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+    }
+    
+  };
+
   const classes = useStyles();
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
   return (
