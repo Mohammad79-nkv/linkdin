@@ -2,14 +2,15 @@ import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { signInGoogle } from "../store/user";
+import GoogleLogin from "./Authentication/GoogleLogin";
 
 const Login = () => {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const handleSignInWithGoogle = async () => {
-    await dispatch(signInGoogle());
-    history.push("/home");
-  };
+  // const dispatch = useDispatch();
+  // const history = useHistory();
+  // const handleSignInWithGoogle = async () => {
+  //   await dispatch(signInGoogle());
+  //   history.push("/home");
+  // };
 
   return (
     <Container>
@@ -31,12 +32,9 @@ const Login = () => {
           <h1>Welcom to your professionl community</h1>
           <img src="/images/login-hero.svg" alt="login-hro" />
         </Hero>
-        <Form>
-          <Google onClick={handleSignInWithGoogle}>
-            <img src="/images/google.svg" alt="signIn-google" />
-            Sign in whit Google
-          </Google>
-        </Form>
+        <Google>
+          <GoogleLogin />
+        </Google>
       </Section>
     </Container>
   );
@@ -78,7 +76,8 @@ const Join = styled.a`
 `;
 const SignIn = styled.a`
   text-decoration: none !important;
-  box-shadow: inset 0 0 0 1px #0a66c2;
+  box-shadow: inset 0 0 0import GoogleLogin from './Authentication/GoogleLogin';
+ 1px #0a66c2;
   color: #0a66c2;
   border-radius: 24px;
   text-decoration: 167ms;
@@ -143,17 +142,22 @@ const Hero = styled.div`
     }
   }
 `;
-const Form = styled.div`
-  margin-top: 100px;
+// const Form = styled.div`
+//   margin-top: 100px;
+//   width: 408px;
+//   @media (max-width: 768px) {
+//     margin-top: 20px;
+//     margin-left: auto;
+//     margin-right: auto;
+//   }
+// `;
+const Google = styled.div`
+margin-top:100px;
   width: 408px;
   @media (max-width: 768px) {
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
   }
-`;
-const Google = styled.button`
-  margin: 0 auto;
+  /* margin: 0 auto;
   display: flex;
   align-items: center;
   background-color: #fff;
@@ -173,6 +177,6 @@ const Google = styled.button`
   &:hover {
     background-color: rgba(207, 207, 207, 0.25);
     color: rgba(0, 0, 0, 0.75);
-  }
+  } */
 `;
 export default Login;

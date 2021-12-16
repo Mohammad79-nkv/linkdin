@@ -3,6 +3,8 @@ import styled from "styled-components";
 import FormControl from "./form/FormControl";
 import * as Yup from "yup";
 import { Button, makeStyles, Typography } from "@material-ui/core";
+import GoogleLogin from "./Authentication/GoogleLogin";
+import { Link } from "react-router-dom";
 
 const validationSchema = Yup.object({
   email: Yup.string("Enter your email")
@@ -72,8 +74,9 @@ const SignUp = () => {
               helperText={formik.touched.password && formik.errors.password}
             />
             <p>
-              By clicking Agree & Join, you agree to the LinkedIn<span>User Agreement, Privacy Policy,</span> 
-               and <span>Cookie Policy</span>.
+              By clicking Agree & Join, you agree to the LinkedIn
+              <span>User Agreement, Privacy Policy,</span>
+              and <span>Cookie Policy</span>.
             </p>
             <Button
               className={classes.formBtn}
@@ -85,9 +88,34 @@ const SignUp = () => {
               Agree & Join
             </Button>
           </form>
+          <SectionTwo>
+            <span className="center">or</span>
+            <span className="left-line"></span>
+          </SectionTwo>
+          <Google>
+            <GoogleLogin />
+          </Google>
+          <SignInSection>
+            <p>Already on LinkedIn?</p>
+            <Link to="/login">Sign in</Link>
+          </SignInSection>
         </MainContent>
       </Main>
-      <Footer></Footer>
+      <Footer>
+        <FirstSection>
+          <a>About</a>
+          <a>User Agreement</a>
+          <a>Cookie Policy</a>
+          <a>Brand Policy</a>
+          <a>Community Guidelines</a>
+        </FirstSection>
+        <SecondSection>
+          <a>Accessibility</a>
+          <a>Privacy Policy</a>
+          <a>Copyright Policy</a>
+          <a>Guest Controls</a>
+        </SecondSection>
+      </Footer>
     </Container>
   );
 };
@@ -106,10 +134,9 @@ const Main = styled.div`
   align-items: center;
   padding: 24px 0;
   /* justify-content: center; */
-`;
-const Footer = styled.div`
-  background: #ffffff;
-  height: 50px;
+  @media (max-width: 1160px) {
+      background-color: #ffffffff;
+  }
 `;
 const MainHeader = styled.div`
   display: flex;
@@ -131,19 +158,115 @@ const MainContent = styled.div`
   border-radius: 8px;
   padding: 24px;
   p {
-      /* display:none */
-      font-size: 12px;
-      text-align: center;
-      margin: 16px 0;
-      color:#666666;
-      span {
-        color:#0A66C2;
-        font-weight: bold;
-        cursor: pointer;
-        &:hover {
-            text-decoration: underline;
-        }
+    /* display:none */
+    font-size: 12px;
+    text-align: center;
+    margin: 16px 0;
+    color: #666666;
+    span {
+      color: #0a66c2;
+      font-weight: bold;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
       }
+    }
+  }
+`;
+
+const SectionTwo = styled.div`
+  width: 100%;
+  text-align: center;
+  padding: 24px;
+  position: relative;
+  .left-line {
+    position: absolute;
+    top: 32px;
+    right: 0;
+    display: inline-block;
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  .center {
+    position: absolute;
+    top: 20px;
+    right: 145px;
+    background-color: #ffffffff;
+    z-index: 5;
+    padding: 0 20px;
+  }
+`;
+const Google = styled.div`
+  /* width: 100px; */
+  margin-top: 20px;
+`;
+
+const SignInSection = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p {
+    font-size: 16px;
+  }
+  a {
+    text-decoration: none;
+    font-weight: 500;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+const Footer = styled.div`
+  background: #ffffff;
+  height: 50px;
+  display: flex;
+  font-size: 12px;
+  align-items: center;
+  padding-right: 200px;
+  color:rgba(0, 0, 0, 0.6)
+`;
+const FirstSection = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  a {
+      cursor: pointer;
+      transition: all 200ms ease-in-out;
+      &:hover {
+          text-decoration: underline !important;
+          color: rgba(0, 0, 0, 1) !important;
+      }  }
+  @media (max-width:1160px) {
+      flex-direction: column;
+      justify-content: space-between;
+      a {
+          margin-bottom: 10px;
+          margin-left: 20px;
+      }
+  }
+`;
+const SecondSection = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  a {
+      cursor: pointer;
+      transition: all 200ms ease-in-out;
+
+      &:hover {
+          text-decoration: underline !important;
+          color: rgba(0, 0, 0, 1) !important;
+      }
+  }
+  @media (max-width:1160px) {
+      flex-direction: column;
+      justify-content: space-between;
+      a {
+          margin-bottom: 10px;
+          margin-left: 20px;
+      }
+
   }
 `;
 

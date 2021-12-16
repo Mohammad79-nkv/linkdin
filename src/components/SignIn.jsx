@@ -3,6 +3,7 @@ import styled from "styled-components";
 import FormControl from "./form/FormControl";
 import * as Yup from "yup";
 import { Button, makeStyles, Typography } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const validationSchema = Yup.object({
   email: Yup.string("Enter your email")
@@ -24,31 +25,31 @@ const useStyles = makeStyles((theme) => ({
   password: {
     marginTop: theme.spacing(2),
   },
-  forgatPassword : {
+  forgatPassword: {
     marginTop: theme.spacing(2),
     color: "#0A66C2",
     fontWeight: "bold",
     // display: "inline",
-    width: '160px',
-    cursor: 'pointer',
-    transitionDuration: '100ms',
-    textAlign: 'center',
-    boxSizing:'border-box',
-    padding:'4px 8px',
-    marginLeft: '-10px',
-    borderRadius: '20px',
-    '&:hover' : {
-        textDecoration: 'underline',
-        backgroundColor: '#D0E8FF'
-    }
+    width: "160px",
+    cursor: "pointer",
+    transitionDuration: "100ms",
+    textAlign: "center",
+    boxSizing: "border-box",
+    padding: "4px 8px",
+    marginLeft: "-10px",
+    borderRadius: "20px",
+    "&:hover": {
+      textDecoration: "underline",
+      backgroundColor: "#D0E8FF",
+    },
   },
   formBtn: {
-      marginTop: theme.spacing(3),
-      padding: '15px',
-      borderRadius: '40px',
-      backgroundColor: '#0A66C2',
-      fontWeight: '500',
-  }
+    marginTop: theme.spacing(3),
+    padding: "15px",
+    borderRadius: "40px",
+    backgroundColor: "#0A66C2",
+    fontWeight: "500",
+  },
 }));
 
 const SignIn = () => {
@@ -91,20 +92,25 @@ const SignIn = () => {
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
             />
-            <Typography className={classes.forgatPassword}>Forgot password?</Typography>
+            <Typography className={classes.forgatPassword}>
+              Forgot password?
+            </Typography>
             <Button
               className={classes.formBtn}
               color="primary"
               variant="contained"
               fullWidth
               type="submit"
-            
             >
               Sign in
             </Button>
           </form>
         </FormContent>
       </Content>
+      <SignUpSection>
+        <p>New to LinkedIn?</p>
+        <Link to="/register">Join now</Link>
+      </SignUpSection>
     </Container>
   );
 };
@@ -132,8 +138,7 @@ const Content = styled.div`
   /* border:1px solid black; */
   padding: 24px;
   @media (min-width: 768px) {
-      
-      box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
   }
 `;
 const HeaderContent = styled.div`
@@ -146,10 +151,23 @@ const HeaderContent = styled.div`
 `;
 const FormContent = styled.div`
   form {
-    
   }
   .form-btn {
     margin-top: 20px;
+  }
+`;
+const SignUpSection = styled.div`
+  display: flex;
+  justify-content: center;
+  p {
+    font-size: 16px;
+  }
+  a {
+    text-decoration: none;
+    font-weight: 500;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 export default SignIn;
