@@ -1,11 +1,11 @@
 import { Form, Formik, useFormik } from "formik";
 import styled from "styled-components";
-import FormControl from "./form/FormControl";
+import FormControl from "../form/FormControl";
 import * as Yup from "yup";
 import { Button, makeStyles, Typography } from "@material-ui/core";
-import GoogleLogin from "./Authentication/GoogleLogin";
+import GoogleLogin from "./GoogleLogin";
 import { Link, useHistory } from "react-router-dom";
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 
 const validationSchema = Yup.object({

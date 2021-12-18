@@ -1,13 +1,13 @@
 import { Form, Formik, useFormik } from "formik";
 import styled from "styled-components";
-import FormControl from "./form/FormControl";
+import FormControl from "../form/FormControl";
 import * as Yup from "yup";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
-import { auth } from "../firebase";
-import { useDispatch, useSelector } from 'react-redux';
-import { signInUser } from "../store/user";
-import { toast } from 'react-toastify';
+import { auth } from "../../firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { signInUser } from "../../store/user";
+import { toast } from "react-toastify";
 
 const validationSchema = Yup.object({
   email: Yup.string("Enter your email")
@@ -54,27 +54,40 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignIn = () => {
-    const dispatch = useDispatch()
-    const user = useSelector(state => state.user)
-    const history = useHistory();
-  const onSubmit = async(values) => {
-    try{
-        await dispatch(signInUser(values))
-        
-        // user && history.replace("/home")
-    }catch(err){
-        // console.log(err);
-        toast.error(`${err.massage}`, {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            });
-    }
-    
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const history = useHistory();
+  const onSubmit = async (values) => {
+    const { email, password } = values;
+    auth.signInWithEmailAndPassword(email, password).then(({ user }) => {
+      const { email, photoURL, displayName } = user;
+      const userDitails = {
+        email,
+        photoURL,
+        displayName,
+      };
+      dispatch(signInUser(userDitails));
+      toast.success(`Hello ${email}`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      history.replace('/home')
+    }).catch(err => {
+      toast.error(`${err.message}`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    })
   };
 
   const classes = useStyles();

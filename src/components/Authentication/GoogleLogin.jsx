@@ -8,7 +8,7 @@ const GoogleLogin = () => {
   const history = useHistory();
   const handleSignInWithGoogle = async () => {
     await dispatch(signInGoogle());
-    history.push("/home");
+    history.replace("/home");
   };
   return (
     <Form>

@@ -1,4 +1,6 @@
 import { Fragment } from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Header from "./Header";
 import LeftBar from './LeftBar';
@@ -6,6 +8,11 @@ import Main from "./Main";
 import RightBar from "./RightBar";
 
 const Home = () => {
+  const history = useHistory()
+  const user = useSelector(state => state.user)
+  if(!user.email){
+    history.replace('/')
+  }
   return (
     <Fragment>
       <Header />

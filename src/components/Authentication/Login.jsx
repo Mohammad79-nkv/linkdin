@@ -1,8 +1,8 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { signInGoogle } from "../store/user";
-import GoogleLogin from "./Authentication/GoogleLogin";
+import { signInGoogle } from "../../store/user";
+import GoogleLogin from "./GoogleLogin";
 
 const Login = () => {
   // const dispatch = useDispatch();
@@ -11,6 +11,11 @@ const Login = () => {
   //   await dispatch(signInGoogle());
   //   history.push("/home");
   // };
+  const user = useSelector((state) => state.user);
+  const history = useHistory();
+  if (user.email) {
+    history.replace("/home", )
+  }
 
   return (
     <Container>
@@ -152,7 +157,7 @@ const Hero = styled.div`
 //   }
 // `;
 const Google = styled.div`
-margin-top:100px;
+  margin-top: 100px;
   width: 408px;
   @media (max-width: 768px) {
     margin: 0 auto;

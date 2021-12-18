@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { signUpUser } from "../store/user";
+import SignOut from './Authentication/SignOut';
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -57,11 +58,7 @@ const Header = () => {
                 <img src="/images/user.svg" alt="" />
                 <span>Me</span>{" "}
               </a>
-              <SignOut onClick={() => dispatch(signUpUser())}>
-                <a href="#">
-                  Sign out
-                </a>
-              </SignOut>
+              <SignOut />
             </User>
             <Work>
               <a href="#">
@@ -212,17 +209,17 @@ const NavList = styled.li`
     }
   }
 `;
-const SignOut = styled.div`
-  position: absolute;
-  top:45px;
-  background-color: skyblue;
-  border-radius: 5px;
-  display: none;
-  cursor: pointer;
-  a {
-    color : black;
-  }
-`;
+// const SignOut = styled.div`
+//   position: absolute;
+//   top:45px;
+//   background-color: skyblue;
+//   border-radius: 5px;
+//   display: none;
+//   cursor: pointer;
+//   a {
+//     color : black;
+//   }
+// `;
 const User = styled(NavList)`
   a {
     img {
@@ -232,7 +229,7 @@ const User = styled(NavList)`
     }
   }
   &:hover {
-    ${SignOut} {
+    div {
       display: flex;
     }
   }
