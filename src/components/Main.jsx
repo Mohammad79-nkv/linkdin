@@ -7,13 +7,26 @@ import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import InsertCommentTwoToneIcon from '@material-ui/icons/InsertCommentTwoTone';
 import ShareTwoToneIcon from '@material-ui/icons/ShareTwoTone';
 import SendTwoToneIcon from '@material-ui/icons/SendTwoTone';
+import { useSelector } from "react-redux";
+import PostModal from "./common/PostModal";
+import { useState } from "react";
+
 const Main = () => {
+  const user = useSelector(state => state.user)
+  const [showModal, setShowModal] = useState(false);
+  const handleShowModal = () => {
+    setShowModal(!showModal);
+  }
   return (
     <Container className="col col-12 col-lg-6">
       <ShareBox>
         <ShareHeader>
+        {user && user.picture ? (
+          <img src={user.picture} alt="user-photo" />
+        ) : (
           <img src="/images/user.svg" alt="" />
-          <button>Start a post</button>
+        )}
+          <button onClick={handleShowModal}>Start a post</button>
         </ShareHeader>
         <ShareOptions>
           <button>
@@ -77,6 +90,7 @@ const Main = () => {
           </SocialInfo>
         </Article>
       </div>
+      {showModal && <PostModal handleShow={handleShowModal}/>}
     </Container>
   );
 };

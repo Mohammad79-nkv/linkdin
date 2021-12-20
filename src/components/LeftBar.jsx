@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const LeftBar = () => {
+  const user = useSelector((state) => state.user);
   return (
     <Container className="col col-12 col-lg-3">
       <Content className="">
@@ -8,7 +10,9 @@ const LeftBar = () => {
           <CardBackground />
           <a>
             <Photo />
-            <Link>Welcom, there!</Link>
+            <Link>
+              Welcom, {user && user.given_name ? user.given_name : "There"}!
+            </Link>
           </a>
           <a>
             <AddPhotoText>Add a photo</AddPhotoText>
@@ -171,12 +175,11 @@ const CommunityContent = styled.div`
     align-items: flex-start;
     line-height: 2;
     a {
-        cursor: pointer;
-        &:hover {
-            color:#0a66c2 !important;
-        }
+      cursor: pointer;
+      &:hover {
+        color: #0a66c2 !important;
+      }
     }
-
   }
 `;
 const Discover = styled.div`
@@ -187,7 +190,9 @@ const Discover = styled.div`
   font-weight: 500;
   a {
     color: rgba(0, 0, 0, 0.6) !important;
-  }
+  }import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+
   &:hover {
       background-color: rgba(0, 0, 0, 0.08);
     }

@@ -1,10 +1,11 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { signUpUser } from "../store/user";
-import SignOut from './Authentication/SignOut';
+import SignOut from "./Authentication/SignOut";
 
 const Header = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   return (
     <Container>
       <Content>
@@ -55,7 +56,11 @@ const Header = () => {
             </NavList>
             <User>
               <a href="#">
-                <img src="/images/user.svg" alt="" />
+                {user && user.picture ? (
+                  <img src={user.picture} alt="user-photo" />
+                ) : (
+                  <img src="/images/user.svg" alt="" />
+                )}
                 <span>Me</span>{" "}
               </a>
               <SignOut />
