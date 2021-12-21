@@ -7,16 +7,21 @@ import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import InsertCommentTwoToneIcon from '@material-ui/icons/InsertCommentTwoTone';
 import ShareTwoToneIcon from '@material-ui/icons/ShareTwoTone';
 import SendTwoToneIcon from '@material-ui/icons/SendTwoTone';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PostModal from "./common/PostModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getPost } from "../store/post";
 
 const Main = () => {
+  const dispatch = useDispatch()
   const user = useSelector(state => state.user)
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => {
     setShowModal(!showModal);
   }
+  useEffect(() => {
+    dispatch(getPost())
+  },[])
   return (
     <Container className="col col-12 col-lg-6">
       <ShareBox>

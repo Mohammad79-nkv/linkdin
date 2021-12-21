@@ -3,13 +3,16 @@ import CloseIcon from "@material-ui/icons/Close";
 import PhotoSizeSelectActualTwoToneIcon from "@material-ui/icons/PhotoSizeSelectActualTwoTone";
 import VideoLibraryTwoToneIcon from "@material-ui/icons/VideoLibraryTwoTone";
 import ReactPlayer from "react-player";
+import firebase from "firebase";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { postArticleAPI } from "../../store/post.js";
 import { useState } from "react";
 
 const PostModal = (props) => {
   const { handleShow } = props;
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const [postText, setPostText] = useState("");
   const [sharedImage, setSharedImage] = useState("");
@@ -25,13 +28,25 @@ const PostModal = (props) => {
     }
     setSharedImage(image);
   };
-
   const reset = () => {
-    setPostText("")
-    setSharedImage("")
-    setSharedVideo("")
-    setAssetArea("")
-  }
+    setPostText("");
+    setSharedImage("");
+    setSharedVideo("");
+    setAssetArea("");
+  };
+  const handleSharePost = (e) => {
+    e.preventDefault();
+    const post = {
+      image: sharedImage,
+      video: sharedVideo,
+      discription: postText,
+      user,
+      timestamp: firebase.firestore.Timestamp.now(),
+    };
+    console.log(post);
+    dispatch(postArticleAPI(post));
+    reset();
+  };
 
   return (
     <Container>
@@ -102,7 +117,7 @@ const PostModal = (props) => {
               </button>
             </SharedOptions>
             <SharedPost>
-              <button>Post</button>
+              <button onClick={handleSharePost}>Post</button>
             </SharedPost>
           </SharedAction>
         </SharedContent>
