@@ -46,6 +46,7 @@ const PostModal = (props) => {
     console.log(post);
     dispatch(postArticleAPI(post));
     reset();
+    handleShow()
   };
 
   return (

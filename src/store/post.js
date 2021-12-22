@@ -1,9 +1,11 @@
 import db, { storage } from "../firebase";
+import { postLoading } from "./loadingPost";
 
 const initPosts = "INIT_POSTS";
 
 const postArticleAPI = (payload) => {
   return async (dispatch) => {
+    dispatch(postLoading(true));
     if (payload.image !== "") {
       const upload = storage
         .ref(`images/${payload.image.name}`)
@@ -21,21 +23,23 @@ const postArticleAPI = (payload) => {
         (err) => console.log(err),
         async () => {
           const downloadURL = await upload.snapshot.ref.getDownloadURL();
-          db.collection("articles").add({
+          await db.collection("articles").add({
             actor: {
               description: payload.user.email,
               title: payload.user.given_name,
               date: payload.timestamp,
               image: payload.user.picture,
             },
-            video : payload.video,
+            video: payload.video,
             sharedImg: downloadURL,
             comments: 0,
-            discription:payload.discription
+            discription: payload.discription,
           });
+          dispatch(postLoading(false));
         }
       );
-    }else if (payload.video !=="") {
+      // dispatch(postLoading(false));
+    } else if (payload.video !== "") {
       db.collection("articles").add({
         actor: {
           description: payload.user.email,
@@ -43,11 +47,12 @@ const postArticleAPI = (payload) => {
           date: payload.timestamp,
           image: payload.user.picture,
         },
-        video : payload.video,
+        video: payload.video,
         sharedImg: "",
         comments: 0,
-        discription:payload.discription
+        discription: payload.discription,
       });
+      // dispatch(postLoading(false));
     }
   };
 };
@@ -55,14 +60,16 @@ const postArticleAPI = (payload) => {
 export const getPost = () => {
   return async (dispatch) => {
     let payload;
-    db.collection("articles").orderBy('actor.date', 'desc').onSnapshot((snapshot) => {
-      console.log(snapshot.docs.map((doc) => doc.data()));
-      payload = snapshot.docs.map((doc) => doc.data())
-      dispatch({type: initPosts, payload});
-      console.log(payload)
-    })
-  }
-}
+    db.collection("articles")
+      .orderBy("actor.date", "desc")
+      .onSnapshot((snapshot) => {
+        console.log(snapshot.docs.map((doc) => doc.data()));
+        payload = snapshot.docs.map((doc) => doc.data());
+        dispatch({ type: initPosts, payload });
+        console.log(payload);
+      });
+  };
+};
 
 const postReducer = (state = [], action) => {
   switch (action.type) {

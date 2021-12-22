@@ -4,34 +4,38 @@ import VideocamOutlinedIcon from "@material-ui/icons/VideocamOutlined";
 import EventNoteTwoToneIcon from "@material-ui/icons/EventNoteTwoTone";
 import CreateTwoToneIcon from "@material-ui/icons/CreateTwoTone";
 import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
-import InsertCommentTwoToneIcon from '@material-ui/icons/InsertCommentTwoTone';
-import ShareTwoToneIcon from '@material-ui/icons/ShareTwoTone';
-import SendTwoToneIcon from '@material-ui/icons/SendTwoTone';
+import InsertCommentTwoToneIcon from "@material-ui/icons/InsertCommentTwoTone";
+import ShareTwoToneIcon from "@material-ui/icons/ShareTwoTone";
+import SendTwoToneIcon from "@material-ui/icons/SendTwoTone";
 import { useDispatch, useSelector } from "react-redux";
 import PostModal from "./common/PostModal";
 import { useEffect, useState } from "react";
 import { getPost } from "../store/post";
+import ReactPlayer from "react-player";
+import { CircularProgress } from "@material-ui/core";
 
 const Main = () => {
-  const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const post = useSelector((state) => state.post);
+  const postLoading = useSelector((state) => state.postLoading);
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => {
     setShowModal(!showModal);
-  }
+  };
   useEffect(() => {
-    dispatch(getPost())
-  },[])
+    dispatch(getPost());
+  }, [user]);
   return (
     <Container className="col col-12 col-lg-6">
       <ShareBox>
         <ShareHeader>
-        {user && user.picture ? (
-          <img src={user.picture} alt="user-photo" />
-        ) : (
-          <img src="/images/user.svg" alt="" />
-        )}
-          <button onClick={handleShowModal}>Start a post</button>
+          {user && user.picture ? (
+            <img src={user.picture} alt="user-photo" />
+          ) : (
+            <img src="/images/user.svg" alt="" />
+          )}
+          <button onClick={handleShowModal}>Share a post</button>
         </ShareHeader>
         <ShareOptions>
           <button>
@@ -53,49 +57,65 @@ const Main = () => {
         </ShareOptions>
       </ShareBox>
       <div>
-        <Article>
-          <SharedArticle>
-            <PostHeader>
-              <div>
-                <img src="/images/user.svg" />
-                <div>
-                  <span>UserName</span>
-                  <span>Email</span>
-                  <span>date</span>
-                </div>
-              </div>
-              <a>...</a>
-            </PostHeader>
-            <Description>
-              <p>This is my post</p>
-            </Description>
-            <PostImage>
-              <img src="/images/user.svg" />
-            </PostImage>
-          </SharedArticle>
-          <SocialInfo>
-            <SocialActions>
-              <button>
-                <ThumbUpAltOutlinedIcon />
-                <span>Like</span>
-              </button>
-              <button>
-                <InsertCommentTwoToneIcon />
-                <span>Comments</span>
-              </button>
-              <button>
-                <ShareTwoToneIcon />
-                <span>Share</span>
-              </button>
-              <button>
-                <SendTwoToneIcon />
-                <span>Send</span>
-              </button>
-            </SocialActions>
-          </SocialInfo>
-        </Article>
+        {postLoading && (
+          <Progress>
+            <CircularProgress color="secondary" />
+          </Progress>
+        )}
+        {post &&
+          post.map((post, key) => (
+            <Article key={key}>
+              <SharedArticle>
+                <PostHeader>
+                  <div>
+                    <img src={post.actor.image} />
+                    <div>
+                      <span>{post.actor.title}</span>
+                      <span>{post.actor.description}</span>
+                      <span>
+                        {post.actor.date.toDate().toLocaleDateString()}
+                      </span>
+                    </div>
+                  </div>
+                  <a>...</a>
+                </PostHeader>
+                <Description>
+                  <p>{post.discription}</p>
+                </Description>
+                <PostImage>
+                  {!post.video && post.sharedImg ? (
+                    <img src={post.sharedImg} />
+                  ) : (
+                    post.video && (
+                      <ReactPlayer url={post.video} width={"100%"} />
+                    )
+                  )}
+                </PostImage>
+              </SharedArticle>
+              <SocialInfo>
+                <SocialActions>
+                  <button>
+                    <ThumbUpAltOutlinedIcon />
+                    <span>Like</span>
+                  </button>
+                  <button>
+                    <InsertCommentTwoToneIcon />
+                    <span>Comments</span>
+                  </button>
+                  <button>
+                    <ShareTwoToneIcon />
+                    <span>Share</span>
+                  </button>
+                  <button>
+                    <SendTwoToneIcon />
+                    <span>Send</span>
+                  </button>
+                </SocialActions>
+              </SocialInfo>
+            </Article>
+          ))}
       </div>
-      {showModal && <PostModal handleShow={handleShowModal}/>}
+      {showModal && <PostModal handleShow={handleShowModal} />}
     </Container>
   );
 };
@@ -209,23 +229,30 @@ const PostImage = styled.div`
     height: 100%;
   }
 `;
-const SocialInfo =styled.div``;
-const SocialActions =styled.div`
+const SocialInfo = styled.div``;
+const SocialActions = styled.div`
   display: flex;
   justify-content: flex-start;
   padding: 10px 12px;
   button {
     margin-right: 20px;
-    background-color:transparent;
-    color:#5378A4;
+    background-color: transparent;
+    color: #5378a4;
     font-weight: 600;
-    display:flex;
+    display: flex;
     align-items: center;
-    padding:8px 10px;
+    padding: 8px 10px;
     border-radius: 10px;
     &:hover {
-      background-color:rgba(83, 120, 164, 0.1);
+      background-color: rgba(83, 120, 164, 0.1);
     }
   }
+`;
+const Progress = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
 `;
 export default Main;

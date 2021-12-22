@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -6,15 +6,26 @@ import Header from "./Header";
 import LeftBar from './LeftBar';
 import Main from "./Main";
 import RightBar from "./RightBar";
+import LoginGoogleModal from './common/LoginGoogleModal'
 
 const Home = () => {
+  const [showGoogleModal, setShowModal] = useState(false)
   const history = useHistory()
   const user = useSelector(state => state.user)
   if(!user.email){
     history.replace('/')
   }
+  useEffect(()=>{
+    if(user && !user.picture){
+      setShowModal(true)
+    }
+  },[])
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
   return (
     <Fragment>
+      { showGoogleModal && <LoginGoogleModal closeModal={handleCloseModal}/>}
       <Header />
       <Container>
         <Section>
@@ -41,7 +52,7 @@ const Container = styled.div`
   padding-top: 52px;
   max-width: 100%;
   background-color: #F5F4F6;
-  height: 100vh;
+  height: 100%;
 `;
 const Content = styled.div`
   max-width: 1128px;

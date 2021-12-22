@@ -56,7 +56,9 @@ const LeftBar = () => {
     </Container>
   );
 };
-const Container = styled.div``;
+const Container = styled.div`
+  position: sticky !important;
+`;
 const Content = styled.div`
   background-color: #fff;
   border-radius: 5px;
