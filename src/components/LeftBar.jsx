@@ -56,10 +56,9 @@ const LeftBar = () => {
     </Container>
   );
 };
-const Container = styled.div`
-  position: sticky !important;
-`;
+const Container = styled.div``;
 const Content = styled.div`
+  /* position: sticky; */
   background-color: #fff;
   border-radius: 5px;
   overflow: hidden;
@@ -69,6 +68,10 @@ const Content = styled.div`
   position: relative;
   border: none;
   box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 0 0 rgb(0 0 0 / 20%);
+  @media (min-width: 993px) {
+    position: sticky !important;
+    top: 70px;
+  }
 `;
 const UserInfo = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
@@ -162,7 +165,12 @@ const Item = styled.div`
     }
   }
 `;
-const CommunityCard = styled(Content)``;
+const CommunityCard = styled(Content)`
+  @media (min-width: 993px) {
+    position: sticky !important;
+    top: 353px;
+  }
+`;
 const CommunityContent = styled.div`
   display: flex;
   justify-content: space-between;

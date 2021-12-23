@@ -1,16 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { signInGoogle } from "../../store/user";
 import GoogleLogin from "./GoogleLogin";
 
 const Login = () => {
-  // const dispatch = useDispatch();
-  // const history = useHistory();
-  // const handleSignInWithGoogle = async () => {
-  //   await dispatch(signInGoogle());
-  //   history.push("/home");
-  // };
   const user = useSelector((state) => state.user);
   const history = useHistory();
   if (user.email) {
@@ -56,9 +49,10 @@ const Nav = styled.div`
   flex-wrap: nowrap;
   position: relative;
 
-  & > a {
+  a {
     width: 135px;
     height: 34px;
+    text-decoration: none !important;
     @media (max-width: 768px) {
       padding: 0 5px;
     }
@@ -66,6 +60,7 @@ const Nav = styled.div`
 `;
 const Join = styled.a`
   font-size: 16px;
+  text-decoration: none;
   padding: 10px 12px;
   text-decoration: none;
   border-radius: 4px;
@@ -80,7 +75,6 @@ const Join = styled.a`
   }
 `;
 const SignIn = styled.a`
-  text-decoration: none !important;
   box-shadow: inset 0 0 0import GoogleLogin from './Authentication/GoogleLogin';
  1px #0a66c2;
   color: #0a66c2;
@@ -92,6 +86,7 @@ const SignIn = styled.a`
   padding: 10px 24px;
   text-align: center;
   background-color: rgba(0, 0, 0, 0);
+  border: 2px solid #0a66c2;
   cursor: pointer;
   &:hover {
     background-color: rgba(112, 181, 249, 0.15);

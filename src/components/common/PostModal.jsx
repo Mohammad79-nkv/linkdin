@@ -19,6 +19,16 @@ const PostModal = (props) => {
   const [sharedVideo, setSharedVideo] = useState("");
   const [assetArea, setAssetArea] = useState("");
 
+  const handleDisabled = () => {
+    if (sharedImage !== "" && postText !=="") {
+      return false;
+    } else if (sharedVideo !== "" && postText !== "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   const handleSaveImage = (e) => {
     const image = e.target.files[0];
 
@@ -46,7 +56,7 @@ const PostModal = (props) => {
     console.log(post);
     dispatch(postArticleAPI(post));
     reset();
-    handleShow()
+    handleShow();
   };
 
   return (
@@ -118,7 +128,12 @@ const PostModal = (props) => {
               </button>
             </SharedOptions>
             <SharedPost>
-              <button onClick={handleSharePost}>Post</button>
+              <button
+                onClick={handleSharePost}
+                disabled={handleDisabled()}
+              >
+                Post
+              </button>
             </SharedPost>
           </SharedAction>
         </SharedContent>

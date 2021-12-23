@@ -89,6 +89,9 @@ const Container = styled.div`
   padding: 0 24px;
   width: 100vw;
   z-index: 100;
+  @media (max-width: 900px){
+    padding-bottom: 8px;
+  }
 `;
 const Content = styled.div`
   display: flex;
@@ -238,8 +241,20 @@ const User = styled(NavList)`
       display: flex;
     }
   }
+  @media (max-width: 900px) {
+    position: fixed;
+    top:0;
+    right:60px;
+  }
 `;
 const Work = styled(NavList)`
   border-left: 1px dotted rgba(0, 0, 0, 0.8);
+  @media (max-width: 900px) {
+    position: fixed;
+    top:0;
+    right:0;
+    border:none;
+
+  }
 `;
 export default Header;

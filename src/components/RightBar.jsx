@@ -38,8 +38,12 @@ const RightBar = () => {
     </Container>
   );
 };
-const Container = styled.div``;
+const Container = styled.div`
+  
+`;
 const Content = styled.div`
+  position: sticky !important;
+  top:70px;
   background-color: #fff;
   border-radius: 5px;
   overflow: hidden;

@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { getPost } from "../store/post";
 import ReactPlayer from "react-player";
 import { CircularProgress } from "@material-ui/core";
+import Post from "./common/Post";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const Main = () => {
           ) : (
             <img src="/images/user.svg" alt="" />
           )}
-          <button onClick={handleShowModal}>Share a post</button>
+          <button onClick={handleShowModal} disabled={!user.picture}>Share a post</button>
         </ShareHeader>
         <ShareOptions>
           <button>
@@ -64,55 +65,16 @@ const Main = () => {
         )}
         {post &&
           post.map((post, key) => (
-            <Article key={key}>
-              <SharedArticle>
-                <PostHeader>
-                  <div>
-                    <img src={post.actor.image} />
-                    <div>
-                      <span>{post.actor.title}</span>
-                      <span>{post.actor.description}</span>
-                      <span>
-                        {post.actor.date.toDate().toLocaleDateString()}
-                      </span>
-                    </div>
-                  </div>
-                  <a>...</a>
-                </PostHeader>
-                <Description>
-                  <p>{post.discription}</p>
-                </Description>
-                <PostImage>
-                  {!post.video && post.sharedImg ? (
-                    <img src={post.sharedImg} />
-                  ) : (
-                    post.video && (
-                      <ReactPlayer url={post.video} width={"100%"} />
-                    )
-                  )}
-                </PostImage>
-              </SharedArticle>
-              <SocialInfo>
-                <SocialActions>
-                  <button>
-                    <ThumbUpAltOutlinedIcon />
-                    <span>Like</span>
-                  </button>
-                  <button>
-                    <InsertCommentTwoToneIcon />
-                    <span>Comments</span>
-                  </button>
-                  <button>
-                    <ShareTwoToneIcon />
-                    <span>Share</span>
-                  </button>
-                  <button>
-                    <SendTwoToneIcon />
-                    <span>Send</span>
-                  </button>
-                </SocialActions>
-              </SocialInfo>
-            </Article>
+            <Post
+              key={key}
+              actorImage={post.actor.image}
+              actorTitle={post.actor.title}
+              actorDescription={post.actor.description}
+              date={post.actor.date}
+              postDescription={post.discription}
+              postVideo={post.video}
+              postImage={post.sharedImg}
+            />
           ))}
       </div>
       {showModal && <PostModal handleShow={handleShowModal} />}
@@ -137,7 +99,8 @@ const ShareBox = styled(Content)`
     color: #958b7d;
     margin:0 0 8px
     background-color: #fff;
-    padding: 12px 20px
+    padding: 12px 20px;
+  
 `;
 
 const ShareHeader = styled.div`
@@ -158,6 +121,9 @@ const ShareHeader = styled.div`
     border-radius: 50px;
     font-weight: bold;
     color: rgba(0, 0, 0, 0.65);
+  }
+  button:disabled {
+    color:rgba(0, 0, 0, 0.3);
   }
 `;
 const ShareOptions = styled.div`
