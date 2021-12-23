@@ -53,7 +53,6 @@ const PostModal = (props) => {
       user,
       timestamp: firebase.firestore.Timestamp.now(),
     };
-    console.log(post);
     dispatch(postArticleAPI(post));
     reset();
     handleShow();

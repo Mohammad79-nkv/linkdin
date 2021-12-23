@@ -63,10 +63,8 @@ export const getPost = () => {
     db.collection("articles")
       .orderBy("actor.date", "desc")
       .onSnapshot((snapshot) => {
-        console.log(snapshot.docs.map((doc) => doc.data()));
         payload = snapshot.docs.map((doc) => doc.data());
         dispatch({ type: initPosts, payload });
-        console.log(payload);
       });
   };
 };
