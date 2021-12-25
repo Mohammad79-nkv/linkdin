@@ -7,6 +7,7 @@ import GoogleLogin from "./GoogleLogin";
 import { Link, useHistory } from "react-router-dom";
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 const validationSchema = Yup.object({
   email: Yup.string("Enter your email")
@@ -54,34 +55,44 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignUp = () => {
-
-    const onSubmit = (values) => {
-        const { email, password } = values;
-        auth
-          .createUserWithEmailAndPassword(email, password)
-          .then((res) => {
-            toast.success("User Created!", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-            history.replace("/login");
-          })
-          .catch((err) => console.log(err));
-      };
+  const onSubmit = (values) => {
+    const { email, password } = values;
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((res) => {
+        toast.success("User Created!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        history.replace("/login");
+      })
+      .catch((err) => {
+        toast.success(`${err.message}`, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+  };
 
   const history = useHistory();
   const classes = useStyles();
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
 
-  
-
   return (
     <Container>
+      <Helmet>
+        <title>LinkedIn | Sign Up</title>
+      </Helmet>
       <Main>
         <MainHeader>
           <a>

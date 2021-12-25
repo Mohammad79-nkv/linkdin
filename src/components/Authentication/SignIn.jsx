@@ -8,6 +8,7 @@ import { auth } from "../../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "../../store/user";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 const validationSchema = Yup.object({
   email: Yup.string("Enter your email")
@@ -59,41 +60,50 @@ const SignIn = () => {
   const history = useHistory();
   const onSubmit = async (values) => {
     const { email, password } = values;
-    auth.signInWithEmailAndPassword(email, password).then(({ user }) => {
-      const { email, photoURL, displayName } = user;
-      const userDitails = {
-        email,
-        photoURL,
-        displayName,
-      };
-      dispatch(signInUser(userDitails));
-      toast.success(`Hello ${email}`, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(({ user }) => {
+        const { email, photoURL, displayName } = user;
+        const userDitails = {
+          email,
+          photoURL,
+          displayName,
+        };
+        dispatch(signInUser(userDitails));
+        toast.success(`Hello ${email}`, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        history.replace("/home");
+      })
+      .catch((err) => {
+        toast.error(`${err.message}`, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       });
-      history.replace('/home')
-    }).catch(err => {
-      toast.error(`${err.message}`, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    })
   };
-
+  <Helmet>
+    <title>LinkedIn|Sign In</title>
+  </Helmet>;
   const classes = useStyles();
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
   return (
     <Container>
+      <Helmet>
+        <title>LinkedIn | Sign In</title>
+      </Helmet>
+      ;
       <Header>
         <a>
           <img src="/images/login-logo.svg" alt="header-logo" />

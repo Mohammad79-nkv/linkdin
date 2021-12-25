@@ -121,9 +121,14 @@ const ShareHeader = styled.div`
     border-radius: 50px;
     font-weight: bold;
     color: rgba(0, 0, 0, 0.65);
+    transition: all 0.2s ease-in-out;
   }
   button:disabled {
     color:rgba(0, 0, 0, 0.3);
+  }
+  button:hover {
+    background-color:rgba(0, 0, 0, 0.2);
+    /* color:white; */
   }
 `;
 const ShareOptions = styled.div`

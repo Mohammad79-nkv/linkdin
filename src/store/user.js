@@ -22,7 +22,7 @@ const signInGoogle = () => {
     }
   };
 };
-const signUpUser = () => {
+const signOutUser = () => {
   return async (dispatch) => {
     await dispatch({ type: removeUser, payload: {} });
   };
@@ -40,6 +40,6 @@ const userReducer = (state = {}, action) => {
   }
 };
 
-export { signInGoogle, signUpUser, signInUser };
+export { signInGoogle, signOutUser, signInUser };
 
 export default userReducer;

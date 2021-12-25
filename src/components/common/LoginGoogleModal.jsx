@@ -1,12 +1,22 @@
 import styled from "styled-components";
 import CloseIcon from "@material-ui/icons/Close";
+import GoogleLogin from "../Authentication/GoogleLogin";
+import { useSelector } from "react-redux";
+import { useEffect } from 'react';
 
 
 const LoginGoogleModal = ({closeModal}) => {
+    const user = useSelector(state=> state.user)
+    useEffect(() => {
+        if(user.picture){
+            closeModal()
+        }
+    },[user])
     return ( 
         <Container>
             <Content>
             <h5>Login with your own Google account to share post </h5>
+            <GoogleLogin/>
             <div>
                 <button onClick={closeModal}>Close</button>
             </div>

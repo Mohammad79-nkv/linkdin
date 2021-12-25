@@ -1,0 +1,33 @@
+[debug] [2021-12-23T15:59:03.837Z] ----------------------------------------------------------------------
+[debug] [2021-12-23T15:59:03.839Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Asus\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-12-23T15:59:03.839Z] CLI Version:   9.10.0
+[debug] [2021-12-23T15:59:03.839Z] Platform:      win32
+[debug] [2021-12-23T15:59:03.839Z] Node Version:  v14.17.0
+[debug] [2021-12-23T15:59:03.840Z] Time:          Thu Dec 23 2021 19:29:03 GMT+0330 (Iran Standard Time)
+[debug] [2021-12-23T15:59:03.840Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-12-23T15:59:03.842Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2021-12-23T15:59:03.861Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-12-23T15:59:03.861Z] > authorizing via signed-in user (mohammadnv79@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Programming\React-Project\LinkdIn\linkdin
+
+Before we get started, keep in mind:
+
+  * You are currently outside your home directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 

@@ -1,13 +1,13 @@
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { signUpUser } from "../../store/user";
+import { signOutUser } from "../../store/user";
 
 const SignOut = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const handleSignOut = () => {
-        dispatch(signUpUser())
+        dispatch(signOutUser())
         history.replace('/')
     }
   return (
